@@ -18,7 +18,7 @@ function postOwner () {
         data: owner
     }).done(function (response) {
         console.log('sending owner info');
-        // getPets();
+        getOwners();
         // clearInputs();
     }).fail(function (response) {
         console.log('error:', response);
@@ -31,17 +31,19 @@ function getOwners () {
         url:'/pets'
     }).done(function (response) {
         console.log('got owner info');
-        displayOwners(reponse);
-        clearInputs();
+        displayOwners(response);
+        // clearInputs();
     }).fail(function (response) {
         console.log('error:', response);
     })
 }
 
-// displayOwners(array) {
-//     let output = //wait for ryan;
-//     output.empty();
-//     for (owner of array) {
-        
-//     }
-// }
+
+function displayOwners(array){
+    let output = $('#ownerSelect');
+    output.empty();
+    output.append(`<option value="" disabled selected>Owner</option>`);
+    for (owner of array) {
+        output.append(`<option value="${owner.id}">${owner.first_name} ${owner.last_name}</option>`);
+    }
+}    
