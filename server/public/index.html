@@ -11,28 +11,48 @@
 </head>
 <body>
     <section id="headerReg">
-            <h1>Registration and Display</h1>
+        <h1>Registration and Display</h1>
     </section>
     <section id="generalReg">
-            <section id="ownerReg">
-                <h2>Owner</h2>
-                <input type="text" placeholder="First Name" id="firstNameReg"></input>
-                <input type="text" placeholder="Last Name" id="lastNameReg"></input>
-                <button type="button" id="ownerBtnReg">Register</button>
-            </section>
-            <section id="petReg">
-                <h2>Pet</h2>
-                <input type="text" placeholder="Pet Name" id="petNameReg"></input>
-                <input type="text" placeholder="Color" id="colorReg"></input>
-                <input type="text" placeholder="Breed" id="breedReg"></input>
-                <button type="button" id="petBtnReg">Register</button>
-            </section>
+        <section id="ownerReg">
+            <h2>Owner</h2>
+            <input type="text" placeholder="First Name" id="firstNameReg"></input>
+            <input type="text" placeholder="Last Name" id="lastNameReg"></input>
+            <button type="button" id="ownerBtnReg">Register</button>
+        </section>
+        <section id="petReg">
+            <h2>Pet</h2>
+            <input type="text" placeholder="Pet Name" id="petNameReg"></input>
+            <input type="text" placeholder="Color" id="colorReg"></input>
+            <input type="text" placeholder="Breed" id="breedReg"></input>
+            <button type="button" id="petBtnReg">Register</button>
+        </section>
     </section>
     <section id="residentDisplay">
-            
+        <table>
+            <thead>
+                <tr>
+                    <th>Owner</th>
+                    <th>Pet</th>
+                    <th>Breed</th>
+                    <th>Color</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="${id}">
+                    <th>Sam Standing</th>
+                    <th>Jimmy John</th>
+                    <th>Pit Bull</th>
+                    <th>Orange</th>
+                    <th><button type="button" class="editPet">Edit</button></th>
+                    <th><button type="button" class="removePet">Remove</button></th>
+                    <th><button type="button" class="chicken">In/Out</button></th>
+                </tr>
+            </tbody>
+        </table>
     </section>
-    
-
-
 </body>
 </html>
