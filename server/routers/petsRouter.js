@@ -54,6 +54,34 @@ router.post('/info',function(request, response){
     
 })
 
+router.get('/info', function(request, response){
+    const sqlText = `SELECT pets.pet_name, pets.id, owners.first_name, owners.last_name, pets.color, pets.breed FROM pets 
+            JOIN owners ON owners.id = pets.owner_id`;
+    pool.query(sqlText)
+    .then(function(result){
+        console.log('successful get pet');
+        response.send(result.rows);
+    })
+   .catch(function(error){
+       console.log('error on get', error);
+       response.sendStatus(500);
+   })
+})
+
+router.delete('/:id', function(request, response){
+    const id = request.params.id;
+    const sqlText = `DELETE FROM pets WHERE id=$1`;
+    pool.query(sqlText, [id])
+    .then(function(result){
+        console.log('pet removed');
+        response.sendStatus(200);
+    })
+    .catch(function(error){
+        response.sendStatus(500);
+    })
+})
+
+
 
 
 

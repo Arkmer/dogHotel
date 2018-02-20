@@ -4,9 +4,11 @@ $(document).ready(onReady);
 
 function onReady(){
     getOwners ();
+    getPets();
     console.log('jQ');
-$('#ownerBtnReg').on('click', postOwner);
-$('#petBtnReg').on('click', postPet);
+    $('#ownerBtnReg').on('click', postOwner);
+    $('#petBtnReg').on('click', postPet);
+    $('#petsTable').on('click', '.removePet', removePet);
 }
 
 function postOwner () {
@@ -66,10 +68,55 @@ function postPet(){
         data: pet
     }).done(function(response){
         console.log('posting pets info', response);
-        //getPets();
+        getPets();
         //clearInputs();
     }).fail(function(response){
         console.log('error in post pets info', response);
+    })
+
+}
+
+function getPets(){
+    $.ajax({
+        type: 'GET',
+        url:'/pets/info'
+    }).done(function (response) {
+        console.log('got pet info');
+        displayPets(response);
+        // clearInputs();
+    }).fail(function (response) {
+        console.log('error:', response);
+    })
+}
+
+function displayPets(pets){
+    let output = $('#petsTable');
+    output.empty();
+    for(pet of pets){
+        output.append(`<tr><th>${pet.first_name} ${pet.last_name}</th>
+                <th>${pet.pet_name}</th>
+                <th>${pet.breed}</th>
+                <th>${pet.color}</th>
+                <th><button type="button" data-id=${pet.id} class="editPet">Edit</button></th>
+                <th><button type="button" data-id=${pet.id} class="removePet">Remove</button></th>
+                <th><button type="button" data-id=${pet.id} class="chicken">In/Out</button></th>
+                </tr>`)
+    }
+}
+
+function removePet(){
+    let id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        type: 'DELETE',
+        url: `/pets/${id}`
+    })
+    .done(function(response){
+        console.log('removed pet id', id);
+        getPets();
+    })
+    .fail(function(response){
+        console.log('error removing pet');
     })
 
 }
