@@ -12,6 +12,3 @@ app.use('/pets', petsRouter);
 app.listen(port, function(){
   console.log('listening on port', port);
 });
-
-// const X = require('./routers/.js');
-// app.use('/', X);

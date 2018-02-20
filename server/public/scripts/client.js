@@ -1,11 +1,8 @@
-console.log('JS');
-
 $(document).ready(onReady);
 
 function onReady(){
     getOwners ();
     getPets();
-    console.log('jQ');
     $('#ownerBtnReg').on('click', postOwner);
     $('#petBtnReg').on('click', postPet);
     $('#petsTable').on('click', '.removePet', removePet);
@@ -46,7 +43,6 @@ function getOwners () {
     })
 }
 
-
 function displayOwners(array){
     let output = $('#ownerSelect');
     output.empty();
@@ -56,7 +52,6 @@ function displayOwners(array){
         output.append(`<option id="ownerReg" value="${owner.id}">${owner.first_name} ${owner.last_name}</option>`);
     }
 }    
-
 
 function postPet(){
     let pet = {
