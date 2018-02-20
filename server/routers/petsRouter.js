@@ -33,28 +33,26 @@ router.get('/',function(request, response){
         console.log('error in get', error);
         response.sendStatus(500);
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 })
 
-
+router.post('/info',function(request, response){
+    console.log('post pets');
+    const pets = request.body;
+    console.log(pets);
+    const sqlText = `INSERT INTO pets 
+     (pet_name, color, breed, owner_id) VALUES ($1, $2, $3, $4)`;
+     pool.query(sqlText, [pets.petName, pets.color, pets.breed, pets.owner])
+     .then(function(result){
+         console.log('successful posted pet');
+         response.sendStatus(200);
+     })
+    .catch(function(error){
+        console.log('error on post', error);
+        response.sendStatus(500);
+    })
+    
+})
 
 
 

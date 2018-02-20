@@ -3,8 +3,10 @@ console.log('JS');
 $(document).ready(onReady);
 
 function onReady(){
+    getOwners ();
     console.log('jQ');
 $('#ownerBtnReg').on('click', postOwner);
+$('#petBtnReg').on('click', postPet);
 }
 
 function postOwner () {
@@ -44,6 +46,30 @@ function displayOwners(array){
     output.empty();
     output.append(`<option value="" disabled selected>Owner</option>`);
     for (owner of array) {
-        output.append(`<option value="${owner.id}">${owner.first_name} ${owner.last_name}</option>`);
+        console.log(owner);
+        output.append(`<option id="ownerReg" value="${owner.id}">${owner.first_name} ${owner.last_name}</option>`);
     }
 }    
+
+
+function postPet(){
+    let pet = {
+        owner: $('#ownerSelect').val(),
+        petName: $('#petNameReg').val(),
+        color: $('#colorReg').val(),
+        breed: $('#breedReg').val()
+    }
+    console.log(pet);
+    $.ajax({
+        type:'POST',
+        url:'/pets/info',
+        data: pet
+    }).done(function(response){
+        console.log('posting pets info', response);
+        //getPets();
+        //clearInputs();
+    }).fail(function(response){
+        console.log('error in post pets info', response);
+    })
+
+}
