@@ -4,13 +4,13 @@ $(document).ready(onReady);
 
 function onReady(){
     console.log('jQ');
-
+$('#ownerBtnReg').on('click', postOwner);
 }
 
 function postOwner () {
     let owner = {
-        firstName: $('#firstNameIn'),
-        lastName: $('#lastNameIn')
+        firstName: $('#firstNameReg').val(),
+        lastName: $('#lastNameReg').val()
     };
     $.ajax({
         type: 'POST',
@@ -18,8 +18,10 @@ function postOwner () {
         data: owner
     }).done(function (response) {
         console.log('sending owner info');
-        getPets();
-        clearInputs();
+        // getPets();
+        // clearInputs();
+    }).fail(function (response) {
+        console.log('error:', response);
     })
 }
 
@@ -36,10 +38,10 @@ function getOwners () {
     })
 }
 
-displayOwners(array) {
-    let output = //wait for ryan;
-    output.empty();
-    for (owner of array) {
+// displayOwners(array) {
+//     let output = //wait for ryan;
+//     output.empty();
+//     for (owner of array) {
         
-    }
-}
+//     }
+// }
