@@ -93,6 +93,29 @@ router.put('/edit', function(request, response){
     })
 })
 
+router.post('/:id', function (request, response) {
+    const id = request.params.id;
+    const sqlText = `INSERT INTO visits (check_in, pet_id) VALUES (now(), $1);`;
+    pool.query(sqlText, [id])
+    .then(function (result) {
+        response.sendStatus(200);
+    })
+    .catch (function(error){
+        response.sendStatus(500);
+})
+})
+
+router.put('/:id', function(request, response){
+    const id =request.params.id;
+    const sqlText = `UPDATE visits SET check_out = now() WHERE pet_id=$1;`;
+    pool.query(sqlText, [id])
+    .then(function (result) {
+        response.sendStatus(200);
+    })
+    .catch (function(error){
+        response.sendStatus(500);
+})
+})
 
 
 

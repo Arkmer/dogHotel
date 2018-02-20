@@ -11,6 +11,8 @@ function onReady(){
     $('#petsTable').on('click', '.removePet', removePet);
     $('#petsTable').on('click', '.editPet', editPet);
     $('#petsTable').on('click', '.submit', submitEditPet);
+    $('#petsTable').on('click', '.in', inToOut);
+    $('#petsTable').on('click','.out', outToIn);
 }
 
 function postOwner () {
@@ -102,7 +104,7 @@ function displayPets(pets){
             <th><button type="button" data-id=${pet.id} data-name="${pet.pet_name}" 
             data-breed="${pet.breed}" data-color="${pet.color}" class="editPet">Edit</button></th>
             <th><button type="button" data-id=${pet.id} class="removePet">Remove</button></th>
-            <th><button type="button" data-id=${pet.id} class="chicken">In/Out</button></th>
+            <th><button type="button" data-id=${pet.id} class="in">In</button></th>
             </tr>`)
     }
 }
@@ -161,5 +163,31 @@ function submitEditPet(){
     })
     .fail(function(response){
         console.log('error editing pet');
+    })
+}
+
+function inToOut () {
+    let id = $(this).data('id');
+    $(this).replaceWith(`<button type="button" data-id=${id} class="out">Out</button>`);
+    $.ajax({
+        type:'POST',
+        url:`/pets/${id}`
+    }).done(function (response) {
+        console.log('sending in time', response);
+    }).fail(function (error) {
+        console.log('failed on sending time', error);
+    })
+}
+
+function outToIn () {
+    let id = $(this).data('id');
+    $(this).replaceWith(`<button type="button" data-id=${id} class="in">In</button>`);
+    $.ajax({
+        type:'PUT',
+        url:`/pets/${id}`
+    }).done(function (response) {
+        console.log('sending out time', response);
+    }).fail(function (error) {
+        console.log('failed on out sending time', error);
     })
 }
