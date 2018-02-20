@@ -9,6 +9,8 @@ function onReady(){
     $('#ownerBtnReg').on('click', postOwner);
     $('#petBtnReg').on('click', postPet);
     $('#petsTable').on('click', '.removePet', removePet);
+    $('#petsTable').on('click', '.editPet', editPet);
+    $('#petsTable').on('click', '.submit', submitEditPet);
 }
 
 function postOwner () {
@@ -94,13 +96,14 @@ function displayPets(pets){
     output.empty();
     for(pet of pets){
         output.append(`<tr><th>${pet.first_name} ${pet.last_name}</th>
-                <th>${pet.pet_name}</th>
-                <th>${pet.breed}</th>
-                <th>${pet.color}</th>
-                <th><button type="button" data-id=${pet.id} class="editPet">Edit</button></th>
-                <th><button type="button" data-id=${pet.id} class="removePet">Remove</button></th>
-                <th><button type="button" data-id=${pet.id} class="chicken">In/Out</button></th>
-                </tr>`)
+            <th id="${pet.id}-name">${pet.pet_name}</th>
+            <th id="${pet.id}-breed">${pet.breed}</th>
+            <th id="${pet.id}-color">${pet.color}</th>
+            <th><button type="button" data-id=${pet.id} data-name="${pet.pet_name}" 
+            data-breed="${pet.breed}" data-color="${pet.color}" class="editPet">Edit</button></th>
+            <th><button type="button" data-id=${pet.id} class="removePet">Remove</button></th>
+            <th><button type="button" data-id=${pet.id} class="chicken">In/Out</button></th>
+            </tr>`)
     }
 }
 
@@ -119,4 +122,44 @@ function removePet(){
         console.log('error removing pet');
     })
 
+}
+
+function editPet(){
+    console.log('click');
+    let id = $(this).data('id');
+    let name = $(this).data('name')
+    let breed = $(this).data('breed')
+    let color = $(this).data('color')
+    $(`#${id}-name`).empty();
+    let nameInputAppend = `<input type="text" id="editName" value="${name}" placeholder="Name">`;
+    $(`#${id}-name`).append(nameInputAppend);
+    $(`#${id}-breed`).empty();
+    let breedInputAppend = `<input type="text" id="editBreed" value="${breed}" placeholder="Breed">`;
+    $(`#${id}-breed`).append(breedInputAppend);
+    $(`#${id}-color`).empty();
+    let colorInputAppend = `<input type="text" id="editColor" value="${color}" placeholder="Color">`;
+    $(`#${id}-color`).append(colorInputAppend);
+    $(this).replaceWith(`<button data-id="${id}" class="submit">Submit</button>`);
+}
+
+function submitEditPet(){
+    let pet = {
+        id: $(this).data('id'),
+        name: $('#editName').val(),
+        breed: $('#editBreed').val(),
+        color: $('#editColor').val()
+    }
+    $(this).replaceWith(`<th><button type="button" data-id=${pet.id} data-name="${pet.name}" 
+        data-breed="${pet.breed}" data-color="${pet.color}" class="editPet">Edit</button></th>`);
+    $.ajax({
+        type: 'PUT',
+        url: '/pets/edit',
+        data: pet
+    })
+    .done(function(response){
+        getPets();
+    })
+    .fail(function(response){
+        console.log('error editing pet');
+    })
 }

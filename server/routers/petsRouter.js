@@ -81,6 +81,18 @@ router.delete('/:id', function(request, response){
     })
 })
 
+router.put('/edit', function(request, response){
+    const editedPet = request.body;
+    const sqlText = `UPDATE pets SET pet_name=$1, breed=$2, color=$3 WHERE id=$4`
+    pool.query(sqlText, [editedPet.name, editedPet.breed, editedPet.color, editedPet.id])
+    .then(function(result){
+        response.sendStatus(200);
+    })
+    .catch(function(error){
+        response.sendStatus(500);
+    })
+})
+
 
 
 
