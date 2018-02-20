@@ -102,7 +102,7 @@ router.post('/:id', function (request, response) {
     })
     .catch (function(error){
         response.sendStatus(500);
-})
+    })
 })
 
 router.put('/:id', function(request, response){
@@ -114,11 +114,7 @@ router.put('/:id', function(request, response){
     })
     .catch (function(error){
         response.sendStatus(500);
+    })
 })
-})
-
-
-
-
 
 module.exports = router;
