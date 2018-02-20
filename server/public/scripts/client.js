@@ -102,8 +102,8 @@ function displayPets(pets){
             <th id="${pet.id}-breed">${pet.breed}</th>
             <th id="${pet.id}-color">${pet.color}</th>
             <th><button type="button" data-id=${pet.id} data-name="${pet.pet_name}" 
-            data-breed="${pet.breed}" data-color="${pet.color}" class="editPet">Edit</button></th>
-            <th><button type="button" data-id=${pet.id} class="removePet">Remove</button></th>
+            data-breed="${pet.breed}" data-color="${pet.color}" class="editPet">Go</button></th>
+            <th><button type="button" data-id=${pet.id} class="removePet">Go</button></th>
             <th><button type="button" data-id=${pet.id} class="in">In</button></th>
             </tr>`)
     }

@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Arkmer/dogHotel#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0",
     "express": "^4.16.2",
     "pg": "^7.4.1"
   }
