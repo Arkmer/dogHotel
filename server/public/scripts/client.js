@@ -24,7 +24,7 @@ function postOwner () {
     }).done(function (response) {
         console.log('sending owner info');
         getOwners();
-        // clearInputs();
+        clearOwnerInputs ()
     }).fail(function (response) {
         console.log('error:', response);
     })
@@ -37,7 +37,6 @@ function getOwners () {
     }).done(function (response) {
         console.log('got owner info');
         displayOwners(response);
-        // clearInputs();
     }).fail(function (response) {
         console.log('error:', response);
     })
@@ -68,7 +67,7 @@ function postPet(){
     }).done(function(response){
         console.log('posting pets info', response);
         getPets();
-        //clearInputs();
+        clearPetInputs();
     }).fail(function(response){
         console.log('error in post pets info', response);
     })
@@ -82,7 +81,6 @@ function getPets(){
     }).done(function (response) {
         console.log('got pet info');
         displayPets(response);
-        // clearInputs();
     }).fail(function (response) {
         console.log('error:', response);
     })
@@ -185,4 +183,16 @@ function outToIn () {
     }).fail(function (error) {
         console.log('failed on out sending time', error);
     })
+}
+
+function clearOwnerInputs () {
+    $('#firstNameReg').val('');
+    $('#lastNameReg').val('');
+}
+
+function clearPetInputs() {
+    $('#ownerSelect').val('');
+    $('#petNameReg').val('');
+    $('#colorReg').val('');
+    $('#breedReg').val('');
 }

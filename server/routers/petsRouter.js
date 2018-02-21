@@ -117,4 +117,15 @@ router.put('/:id', function(request, response){
     })
 })
 
+router.get('/getvisits', function (request, response) {
+    const sqlText = `SELECT * FROM visits 
+    JOIN pets on pets.id = visits.pet_id;`;
+    pool.query(sqlText)
+    .then(function (result) {
+       response.send(result.rows);    
+    }).catch(function (error) {
+        response.sendStatus(500);
+    })
+})
+
 module.exports = router;

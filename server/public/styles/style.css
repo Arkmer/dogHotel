@@ -6,3 +6,7 @@ body {
     width:70%;
     margin:auto;
 }
+
+a {
+    float: right;
+}
